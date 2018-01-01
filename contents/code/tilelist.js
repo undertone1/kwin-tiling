@@ -203,7 +203,7 @@ TileList.prototype.addClient = function(client) {
         client.tiling_tileIndex = -1;
         client.keepBelow = false;
         // WARNING: This crashes kwin!
-        //client.tiling_floating = true;
+        // client.tiling_floating = true;
         return;
     }
 
@@ -212,8 +212,11 @@ TileList.prototype.addClient = function(client) {
         return;
     }
 
+
+
     this.connectSignals(client);
 
+    
     // Ignore fullscreen or minimized clients,
     // but after connecting signals, so
     // they'll be added once that changes.
@@ -223,6 +226,7 @@ TileList.prototype.addClient = function(client) {
         return;
     }
 
+  
     // If the client isn't the current tab, it's added to a tabgroup
     // (because of autogrouping)
     // HACK: Find it by comparing rectangles (yes, really)
@@ -242,7 +246,7 @@ TileList.prototype.addClient = function(client) {
     client.tiling_floating = false;
 };
 
-/**
+/**f
  * Returns the tile in which a certain client is located.
  *
  * @param client Client for which the tile shall be returned.
@@ -267,10 +271,13 @@ TileList.prototype.untileClient = function(client) {
         client.keepBelow = false;
 
         // Don't remove tileIndex, so we can move the window to its position in case it comes back (after minimize etc)
-        //client.tiling_tileIndex = - 1;
-        if (client.tiling_floating == true) {
-            client.noBorder = false;
-        }
+        client.tiling_tileIndex = - 1;
+        // change by undertone1: always show border when window is set to floating!
+        client.noBorder = false;
+
+        // if (client.tiling_floating == true) {
+        //     client.noBorder = false;
+        // }
 
         this.removeClient(client);
     } catch(err) {
